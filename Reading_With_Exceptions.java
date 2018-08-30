@@ -23,12 +23,6 @@ public class Reading_With_Exceptions {
 				printStream.close();
 			}
 		}
-
-//2) Read the first String from the file and use it to create a PrintStream
-//3) Using hasNextInt and nextInt, carefully read the count integer
-//4) use copyNumbers method to complete the job
-//5) close the Scanner and PrintStream objects
-//6) call printToScreen to copy the output file to the screen
 	}
 	
 	void copyNumbers (Scanner scan, PrintStream ps, int numIntsToRead) {
