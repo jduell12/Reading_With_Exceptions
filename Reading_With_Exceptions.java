@@ -8,28 +8,52 @@ import java.util.*;
 public class Reading_With_Exceptions {
 	void process (String inputFileName) {
 		Scanner scan = null;
-		PrintStream printStream = null;
+		PrintStream ps = null;
 		
 		try {
-			FileInputStream fi = new FileInputStream(inputFileName);
-			scan = new Scanner(fi);
-		} catch(FileNotFoundException e) {
-			System.out.println("error: " +e);
+			FileInputStream fi = new FileInputStream (inputFileName);
+			scan = new Scanner (fi);
+			
+			while (scan.hasNext()) {
+				String name = scan.next();
+				ps = new PrintStream(name);
+				int count = -1;
+				if (scan.hasNextInt()) {
+					count = scan.nextInt();
+				} else {
+					System.out.println("There is no next integer. Defaulting to -1");
+				}
+				ps.println(name + " created with the following output: ");
+				copyNumbers(scan, ps, count);
+				printToScreen(name);
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("error: " + e);
 		} finally {
 			if (scan != null) {
 				scan.close();
-			} 
-			if (printStream != null) {
-				printStream.close();
+			}
+			if (ps != null) {
+				ps.close();
 			}
 		}
+		
+		
 	}
 	
 	void copyNumbers (Scanner scan, PrintStream ps, int numIntsToRead) {
-		//hasNext() can be used to see if the scan object still has data
-		//Note that hasNextInt() can be used to see if an integer is present
-		//nextInt() will read an integer
-		//next() can be used to skip over bad integers
+		int count1 = 0;
+		boolean countLess23 = true;
+		while(scan.hasNext() && countLess23) {
+			int x = -1;
+			if (scan.hasNextInt()) {
+				x = scan.nextInt();
+				ps.print(x + " ");
+			} else {
+				System.out.println("Bad integer: " + scan.next());
+			}
+			
+		}
 	}
 	
 	public static void main (String[] args) {
