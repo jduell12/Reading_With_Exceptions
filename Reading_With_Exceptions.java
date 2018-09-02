@@ -5,10 +5,12 @@ import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.*;
 
+
 public class Reading_With_Exceptions {
 	void process (String inputFileName) {
 		Scanner scan = null;
 		PrintStream ps = null;
+		
 		
 		try {
 			FileInputStream fi = new FileInputStream (inputFileName);
@@ -21,10 +23,10 @@ public class Reading_With_Exceptions {
 				if (scan.hasNextInt()) {
 					count = scan.nextInt();
 				} else {
-					System.out.println("There is no next integer. Defaulting to -1");
+					System.out.println("The next input is not an integer.");
 				}
 				ps.println(name + " created with the following output: ");
-				copyNumbers(scan, ps, count);
+				copyNumbers(scan, ps, 23);
 				printToScreen(name);
 			}
 		} catch (FileNotFoundException e) {
@@ -42,18 +44,24 @@ public class Reading_With_Exceptions {
 	}
 	
 	void copyNumbers (Scanner scan, PrintStream ps, int numIntsToRead) {
-		int count1 = 0;
-		boolean countLess23 = true;
-		while(scan.hasNext() && countLess23) {
-			int x = -1;
-			if (scan.hasNextInt()) {
-				x = scan.nextInt();
-				ps.print(x + " ");
-			} else {
-				System.out.println("Bad integer: " + scan.next());
-			}
-			
-		}
+		int sum = 0;
+		
+		boolean count = true;
+			do {
+				if (sum > 21) {
+					count = false;
+				}
+				int x = -1;
+				if (scan.hasNextInt()) {
+					x = scan.nextInt();
+					ps.print(x + " ");
+					sum++;
+				} else {
+					System.out.println("Bad integer: " + scan.next());
+				}
+			}while(scan.hasNext() &&  count);
+
+		
 	}
 	
 	public static void main (String[] args) {
