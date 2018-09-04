@@ -1,21 +1,20 @@
 package reading_with_exceptions;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 import java.util.*;
 
-
 public class Reading_With_Exceptions {
-	void process (String inputFileName) {
+	void process(String inputFileName) {
 		Scanner scan = null;
 		PrintStream ps = null;
-		
-		
+
 		try {
-			FileInputStream fi = new FileInputStream (inputFileName);
-			scan = new Scanner (fi);
-			
+			FileInputStream fi = new FileInputStream(inputFileName);
+			scan = new Scanner(fi);
+
 			while (scan.hasNext()) {
 				String name = scan.next();
 				ps = new PrintStream(name);
@@ -26,7 +25,7 @@ public class Reading_With_Exceptions {
 					System.out.println("The next input is not an integer.");
 				}
 				ps.println(name + " created with the following output: ");
-				copyNumbers(scan, ps, 23);
+				copyNumbers(scan, ps, count);
 				printToScreen(name);
 			}
 		} catch (FileNotFoundException e) {
@@ -39,44 +38,39 @@ public class Reading_With_Exceptions {
 				ps.close();
 			}
 		}
-		
-		
-	}
-	
-	void copyNumbers (Scanner scan, PrintStream ps, int numIntsToRead) {
-		int sum = 0;
-		
-		boolean count = true;
-			do {
-				if (sum > 21) {
-					count = false;
-				}
-				int x = -1;
-				if (scan.hasNextInt()) {
-					x = scan.nextInt();
-					ps.print(x + " ");
-					sum++;
-				} else {
-					System.out.println("Bad integer: " + scan.next());
-				}
-			}while(scan.hasNext() &&  count);
 
-		
 	}
-	
-	public static void main (String[] args) {
+
+	void copyNumbers(Scanner scan, PrintStream ps, int numIntsToRead) {
+		int sum = 0;
+		int x = -1;
+		for (int i = 0; i <= numIntsToRead; i++) {
+			if (sum == 10) {
+				ps.println();
+				sum = 0;
+			} else if (scan.hasNextInt()) {
+				x = scan.nextInt();
+				ps.print(x + " ");
+				sum++;
+			}  else {
+				System.out.println("Bad integer: " + scan.next());
+			}
+		}
+	}
+
+	public static void main(String[] args) {
 		Reading_With_Exceptions rwe = new Reading_With_Exceptions();
 		for (int i = 0; i < args.length; i++) {
 			System.out.println("\n\n============ Processing " + args[i] + " =================\n");
 			rwe.process(args[i]);
 		}
 	}
-	
-	private void printToScreen (String filename) {
+
+	private void printToScreen(String filename) {
 		Scanner scan = null;
 		try {
 			FileInputStream fis = new FileInputStream(filename);
-			scan = new Scanner (fis);
+			scan = new Scanner(fis);
 			while (scan.hasNextLine()) {
 				System.out.println(scan.nextLine());
 			}
