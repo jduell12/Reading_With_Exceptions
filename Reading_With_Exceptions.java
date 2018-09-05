@@ -15,7 +15,7 @@ public class Reading_With_Exceptions {
 			FileInputStream fi = new FileInputStream(inputFileName);
 			scan = new Scanner(fi);
 
-			while (scan.hasNext()) {
+			
 				String name = scan.next();
 				ps = new PrintStream(name);
 				int count = -1;
@@ -23,11 +23,13 @@ public class Reading_With_Exceptions {
 					count = scan.nextInt();
 				} else {
 					System.out.println("The next input is not an integer.");
+					scan.next();
+					count = scan.nextInt();
 				}
 				ps.println(name + " created with the following " + count + " output: ");
 				copyNumbers(scan, ps, count);
 				printToScreen(name);
-			}
+			
 		} catch (FileNotFoundException e) {
 			System.out.println("error: " + e);
 		} finally {
@@ -48,7 +50,7 @@ public class Reading_With_Exceptions {
 		int i = 0;
 		
 		try {
-		while (i <= numIntsToRead) {
+		while (i <= numIntsToRead + 1) {
 			 if (sum == 10) {
 				ps.println();
 				sum = 0;
@@ -59,7 +61,7 @@ public class Reading_With_Exceptions {
 					}
 				} else {
 					x = scan.nextInt();
-					ps.print(x + " " + "i " + i + "    ");
+					ps.print(x + " ");
 					sum++;
 					value++;
 				} 
