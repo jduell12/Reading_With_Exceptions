@@ -24,7 +24,7 @@ public class Reading_With_Exceptions {
 				} else {
 					System.out.println("The next input is not an integer.");
 				}
-				ps.println(name + " created with the following output: ");
+				ps.println(name + " created with the following " + count + " output: ");
 				copyNumbers(scan, ps, count);
 				printToScreen(name);
 			}
@@ -44,17 +44,32 @@ public class Reading_With_Exceptions {
 	void copyNumbers(Scanner scan, PrintStream ps, int numIntsToRead) {
 		int sum = 0;
 		int x = -1;
-		for (int i = 0; i <= numIntsToRead; i++) {
-			if (sum == 10) {
+		int value = 0;
+		int i = 0;
+		
+		try {
+		while (i <= numIntsToRead) {
+			 if (sum == 10) {
 				ps.println();
 				sum = 0;
 			} else if (scan.hasNextInt()) {
-				x = scan.nextInt();
-				ps.print(x + " ");
-				sum++;
+				if (value == (numIntsToRead + 1)) {
+					if(scan.hasNext()) {
+						scan.next();
+					}
+				} else {
+					x = scan.nextInt();
+					ps.print(x + " " + "i " + i + "    ");
+					sum++;
+					value++;
+				} 
 			}  else {
 				System.out.println("Bad integer: " + scan.next());
 			}
+			 i++;
+			} 
+		} catch (NoSuchElementException e){
+			System.out.println("Error: " + e);
 		}
 	}
 
